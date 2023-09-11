@@ -6,6 +6,7 @@
 
 (def dir->type {"bases" :base
                 "components" :component
+                "lib" :component
                 "projects" :project})
 
 (defn source-dir [path]

@@ -6,8 +6,9 @@
 (defn brick-name [path is-dev]
   (when path
     (when-let [brick-path (util/find-first #(str/starts-with? path %)
-                                           (if is-dev ["bases/" "components/" "./bases/" "./components/"]
-                                                      ["../../bases/" "../../components/"]))]
+                                           (if is-dev ["bases/" "components/" "lib/" "./bases/" "./components/"
+                                                       "./lib/"]
+                                               ["../../bases/" "../../components/" "../../lib/"]))]
       (str-util/skip-prefix path brick-path))))
 
 (defn extract-brick-name

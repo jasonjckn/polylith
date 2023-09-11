@@ -13,7 +13,7 @@
     (file/directories (str ws-dir "/" entity-type))))
 
 (defn source-paths [ws-dir]
-  (->> ["bases" "components" "projects"]
+  (->> ["bases" "components" "projects" "lib"]
        (into [] (mapcat #(entity-paths ws-dir %)))
        (sort)
        (vec)))

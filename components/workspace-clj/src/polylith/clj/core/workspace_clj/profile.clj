@@ -12,7 +12,8 @@
 (defn brick-name [[_ {:keys [local/root]}]]
   (when root
     (cond
-      (str/starts-with? root "bases/") (str-util/skip-prefix root "bases/")
+      (str/starts-with? root "bases/")      (str-util/skip-prefix root "bases/")
+      (str/starts-with? root "lib/") (str-util/skip-prefix root "lib/")
       (str/starts-with? root "components/") (str-util/skip-prefix root "components/"))))
 
 (defn brick-name [[_ {:keys [local/root]}] bricks-path]
@@ -22,6 +23,7 @@
 
 (defn lib? [dep]
   (empty? (concat (brick-name dep "bases/")
+                  (brick-name dep "lib/")
                   (brick-name dep "components/"))))
 
 (defn ->brick-paths [{:keys [name type paths]}]
@@ -43,7 +45,7 @@
         project-names (vec (sort (select/names path-entries c/project?)))
         ;; extra-deps
         deps-base-names (mapcat #(brick-name % "bases/") extra-deps)
-        deps-component-names (mapcat #(brick-name % "components/") extra-deps)
+        deps-component-names (mapcat #(brick-name % "lib/") extra-deps)
         deps-brick-names (concat deps-base-names deps-component-names)
         deps-brick-paths (mapcat #(-> % name->brick ->brick-paths) deps-brick-names)
         ;; :local/root deps

@@ -20,11 +20,13 @@
   (if is-dev
     (or
       (str/starts-with? path "bases/")
+      (str/starts-with? path "lib/")
       (str/starts-with? path "components/")
       (str/starts-with? path "./bases/")
       (str/starts-with? path "./components/"))
     (or
       (str/starts-with? path "../../bases/")
+      (str/starts-with? path "../../lib/")
       (str/starts-with? path "../../components/"))))
 
 (defn brick? [[_ {:keys [local/root]}] is-dev]
