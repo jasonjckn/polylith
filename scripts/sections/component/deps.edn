@@ -1,10 +1,10 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
 
-                  :extra-deps {poly/user {:local/root "components/user"}
+                  :extra-deps {poly/user {:local/root "libs/user"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/user/test"]}
+            :test {:extra-paths ["libs/user/test"]}
 
             :poly {:main-opts ["-m" "polylith.clj.core.poly-cli.core"]
                    :extra-deps {polyfy/polylith

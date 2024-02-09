@@ -1,11 +1,11 @@
 {:aliases  {:dev {:extra-paths ["development/src"]
 
-                  :extra-deps {poly/user {:local/root "components/user"}
+                  :extra-deps {poly/user {:local/root "libs/user"}
                                poly/cli  {:local/root "bases/cli"}
 
                                org.clojure/clojure {:mvn/version "1.11.1"}}}
 
-            :test {:extra-paths ["components/user/test"
+            :test {:extra-paths ["libs/user/test"
                                  "bases/cli/test"]}
 
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}

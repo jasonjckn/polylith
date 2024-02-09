@@ -1,0 +1,67 @@
+(ns ^:no-doc polylith.clj.core.validator.m101-illegal-namespace-deps
+  (:require [clojure.set :as set]
+            [clojure.string :as str]
+            [polylith.clj.core.common.interface :as common]
+            [polylith.clj.core.deps.interface :as deps]
+            [polylith.clj.core.util.interface :as util]
+            [polylith.clj.core.util.interface.color :as color]))
+
+(defn brick-error [{:keys [namespace depends-on-interface depends-on-ns]} brick-name type interface-ns color-mode]
+  (when namespace
+    (let [message (str "Illegal dependency on namespace " (color/namespc depends-on-interface depends-on-ns color-mode)
+                       " in " (color/brick type brick-name color-mode) "." (color/namespc namespace color-mode)
+                       ". Use " (color/namespc depends-on-interface interface-ns color-mode) " instead to fix the problem.")]
+      [(util/ordered-map :type "error"
+                         :code 101
+                         :message (color/clean-colors message)
+                         :colorized-message message
+                         :bricks [brick-name])])))
+
+(defn get-namespace [{:keys [depends-on-ns]}]
+  (if-let [idx (str/index-of depends-on-ns ".")]
+    (subs depends-on-ns 0 idx)
+    depends-on-ns))
+
+(defn brick-errors
+  "Checks for dependencies to lib interface namespaces other than 'ifc' or 'interface'
+   (or what is specified in :interface-ns in workspace.edn) for the 'src' context."
+  [suffixed-top-ns {:keys [name interface type namespaces]} interface-names interface-ns color-mode]
+  (let [interface-name (:name interface)
+        dependencies (deps/interface-ns-deps suffixed-top-ns interface-name interface-names (:src namespaces))]
+    (mapcat #(brick-error % name type interface-ns color-mode)
+            (filterv #(not (common/interface-ns? (get-namespace %) interface-ns))
+                     dependencies))))
+
+(defn import-ns [{:keys [namespace imports]}]
+  (map #(vec [% namespace]) imports))
+
+(defn lib-ns [namespace suffixed-top-ns]
+  (:depends-on-ns (common/extract-namespace suffixed-top-ns namespace)))
+
+(defn lib-error [lib-name illegal-import ns->name suffixed-top-ns color-mode]
+  (let [namespace (ns->name illegal-import)
+        lib-ns (:depends-on-ns (common/extract-namespace suffixed-top-ns namespace))
+        {:keys [root-ns depends-on-ns]} (common/extract-namespace suffixed-top-ns illegal-import)
+        message (str "Illegal dependency on namespace " (color/base root-ns color-mode) "." (color/namespc depends-on-ns color-mode)
+                     " in " (color/lib lib-name color-mode) "." (color/namespc lib-ns color-mode)
+                     ". Components are not allowed to depend on bases.")]
+    (util/ordered-map :type "error"
+                      :code 101
+                      :message (color/clean-colors message)
+                      :colorized-message message
+                      :bricks [lib-name])))
+
+(defn lib-errors [{:keys [name namespaces]} base-namespaces suffixed-top-ns color-mode]
+  (let [ns->name (into {} (mapcat import-ns
+                                  (:src namespaces)))
+        imports (-> ns->name keys set)
+        illegal-imports (set/intersection imports base-namespaces)]
+    (map #(lib-error name % ns->name suffixed-top-ns color-mode)
+         illegal-imports)))
+
+(defn errors [suffixed-top-ns interface-names libs bases interface-ns color-mode]
+  (let [base-namespaces (set (common/entities-namespaces bases :src :test))]
+    (vec (concat (mapcat #(brick-errors suffixed-top-ns % interface-names interface-ns color-mode)
+                         (concat libs bases))
+                 (mapcat #(lib-errors % base-namespaces suffixed-top-ns color-mode)
+                         libs)))))

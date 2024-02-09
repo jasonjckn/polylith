@@ -107,20 +107,20 @@
   (copy [(fs/file sections-dir "development/lisa.clj") (fs/file ws-dir "development/src/dev")])
   (sh/shell {:dir ws-dir} "git add development/src/dev/lisa.clj"))
 
-(defn component [{:keys [ws-dir fake-sha images-dir sections-dir output-dir]}]
+(defn lib [{:keys [ws-dir fake-sha images-dir sections-dir output-dir]}]
   (let [poly (fn-default-opts sh/poly {:dir ws-dir})
         shell (fn-default-opts sh/shell {:dir ws-dir})
         polyx (fn-default-opts sh/polyx {:dir ws-dir})]
-    (poly "create component name:user")
-    (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "component-tree.txt"))
-    (copy [(fs/file sections-dir "component/workspace.edn")      ws-dir]
-          [(fs/file sections-dir "component/deps.edn")           ws-dir]
-          [(fs/file sections-dir "component/user-core.clj")      (fs/file ws-dir "components/user/src/se/example/user/core.clj")]
-          [(fs/file sections-dir "component/user-interface.clj") (fs/file ws-dir "components/user/src/se/example/user/interface.clj")])
-    (shell "git add components/user/src/se/example/user/core.clj")
-    (poly {:out (fs/file output-dir "component-info.txt")}
+    (poly "create lib name:user")
+    (output-dir-tree (fs/file ws-dir "..") "example" (fs/file output-dir "lib-tree.txt"))
+    (copy [(fs/file sections-dir "lib/workspace.edn")      ws-dir]
+          [(fs/file sections-dir "lib/deps.edn")           ws-dir]
+          [(fs/file sections-dir "lib/user-core.clj")      (fs/file ws-dir "libs/user/src/se/example/user/core.clj")]
+          [(fs/file sections-dir "lib/user-interface.clj") (fs/file ws-dir "libs/user/src/se/example/user/interface.clj")])
+    (shell "git add libs/user/src/se/example/user/core.clj")
+    (poly {:out (fs/file output-dir "lib-info.txt")}
           (format "info fake-sha:%s color-mode:none" fake-sha))
-    (polyx (format "info fake-sha:%s out:%s" fake-sha (fs/file images-dir "component/output/info.png")))))
+    (polyx (format "info fake-sha:%s out:%s" fake-sha (fs/file images-dir "lib/output/info.png")))))
 
 (defn base [{:keys [ws-dir sections-dir output-dir]}]
   (sh/poly {:dir ws-dir} "create base name:cli")
@@ -174,7 +174,7 @@
       (shell "git tag v1.1.0" first-sha))
     (shell "git tag v1.2.0")
 
-    (copy [(fs/file sections-dir "tagging/user-core-change.clj") (fs/file ws-dir "components/user/src/se/example/user/core.clj")])
+    (copy [(fs/file sections-dir "tagging/user-core-change.clj") (fs/file ws-dir "libs/user/src/se/example/user/core.clj")])
     (poly-infos opts "since:release" "tagging-info-2.txt" "tagging/output/info-02.png")
     (poly-infos opts "since:release" "tagging-info-3.txt" "tagging/output/info-03.png")
     (poly-infos (assoc opts :fake-sha fake-sha)
@@ -189,15 +189,15 @@
   (let [opts (assoc opts :fake-sha fake-sha2)
         poly (fn-default-opts sh/poly {:dir ws-dir})
         shell (fn-default-opts sh/shell {:dir ws-dir})]
-    (copy [(fs/file sections-dir "testing/user-core.clj") (fs/file ws-dir "components/user/src/se/example/user/core.clj")])
+    (copy [(fs/file sections-dir "testing/user-core.clj") (fs/file ws-dir "libs/user/src/se/example/user/core.clj")])
     (poly {:out (fs/file output-dir "testing-diff.txt")} "diff")
     (poly-infos opts "" "testing-info-1.txt" "testing/output/info.png")
-    (copy [(fs/file sections-dir "testing/user-interface-test.clj") (fs/file ws-dir "components/user/test/se/example/user/interface_test.clj")])
+    (copy [(fs/file sections-dir "testing/user-interface-test.clj") (fs/file ws-dir "libs/user/test/se/example/user/interface_test.clj")])
     (poly {:continue true
            :alter-out-fn test-result->output
            :out (fs/file output-dir "testing-test-failing.txt")}
           "test color-mode:none")
-    (copy [(fs/file sections-dir "testing/user-interface-test2.clj") (fs/file ws-dir "components/user/test/se/example/user/interface_test.clj")])
+    (copy [(fs/file sections-dir "testing/user-interface-test2.clj") (fs/file ws-dir "libs/user/test/se/example/user/interface_test.clj")])
     (poly {:alter-out-fn test-result->output
            :out (fs/file output-dir "testing-test-ok.txt")}
           "test color-mode:none")
@@ -259,10 +259,10 @@
           [(fs/file sections-dir "profile/user-api-core.clj")     (fs/file ws-dir "bases/user-api/src/se/example/user_api/core.clj")]
           [(fs/file sections-dir "profile/user-api-api.clj")      (fs/file ws-dir "bases/user-api/src/se/example/user_api/api.clj")]
           [(fs/file sections-dir "profile/user-service-deps.edn") (fs/file ws-dir "projects/user-service/deps.edn")])
-    (poly "create component name:user-remote interface:user")
-    (copy [(fs/file sections-dir "profile/user-remote-deps.edn")      (fs/file ws-dir "components/user-remote/deps.edn")]
-          [(fs/file sections-dir "profile/user-remote-core.clj")      (fs/file ws-dir "components/user-remote/src/se/example/user/core.clj")]
-          [(fs/file sections-dir "profile/user-remote-interface.clj") (fs/file ws-dir "components/user-remote/src/se/example/user/interface.clj")]
+    (poly "create lib name:user-remote interface:user")
+    (copy [(fs/file sections-dir "profile/user-remote-deps.edn")      (fs/file ws-dir "libs/user-remote/deps.edn")]
+          [(fs/file sections-dir "profile/user-remote-core.clj")      (fs/file ws-dir "libs/user-remote/src/se/example/user/core.clj")]
+          [(fs/file sections-dir "profile/user-remote-interface.clj") (fs/file ws-dir "libs/user-remote/src/se/example/user/interface.clj")]
           [(fs/file sections-dir "profile/deps.edn")                  ws-dir]
           [(fs/file sections-dir "profile/command-line-deps.edn")     (fs/file ws-dir "projects/command-line/deps.edn")])
 
@@ -295,14 +295,14 @@
           "ws get:settings:profile-to-settings:default:paths color-mode:none")
     (poly {:out (fs/file output-dir "ws-state-keys.txt")}
           "ws get:keys color-mode:none")
-    (poly {:out (fs/file output-dir "ws-state-components-keys.txt")}
-          (format "ws get:components:keys replace:%s:WS-HOME color-mode:none"
+    (poly {:out (fs/file output-dir "ws-state-libs-keys.txt")}
+          (format "ws get:libs:keys replace:%s:WS-HOME color-mode:none"
                   ws-parent-dir))
-    (poly {:out (fs/file output-dir "ws-state-components-user.txt")}
-          (format "ws get:components:user replace:%s:WS-HOME color-mode:none"
+    (poly {:out (fs/file output-dir "ws-state-libs-user.txt")}
+          (format "ws get:libs:user replace:%s:WS-HOME color-mode:none"
                   ws-parent-dir))
-    (poly {:out (fs/file output-dir "ws-state-components-user-remote-lib-deps.txt")}
-          "ws get:components:user-remote:lib-deps color-mode:none")
+    (poly {:out (fs/file output-dir "ws-state-libs-user-remote-lib-deps.txt")}
+          "ws get:libs:user-remote:lib-deps color-mode:none")
     (poly "ws out:ws.edn")
     (poly {:out (fs/file output-dir "ws-state-ws-file.txt")}
           "ws get:old:user-input:args ws-file:ws.edn color-mode:none")))
@@ -313,7 +313,7 @@
   (fs/delete-tree (fs/file examples-dir "doc-example"))
   (fs/copy-tree ws-dir (fs/file examples-dir "doc-example"))
   (fs/delete-tree (fs/file examples-dir "doc-example/.git"))
-  (doseq [f [".gitignore" "readme.md" "logo.png" "bases/.keep" "components/.keep" "projects/.keep" "development/src/.keep"]]
+  (doseq [f [".gitignore" "readme.md" "logo.png" "bases/.keep" "libs/.keep" "projects/.keep" "development/src/.keep"]]
     (fs/delete (fs/file examples-dir "doc-example" f)))
   (copy [(fs/file ws-parent-dir "readme.txt") (fs/file examples-dir "doc-example/readme.txt")]))
 
@@ -334,9 +334,9 @@
             [["info"                          "dependencies" "info"] ;; no faking the sha for this one, user will see real sha of repo, so we should show it
              ["deps"                          "dependencies" "deps-interfaces"]
              ["deps brick:article"            "dependencies" "deps-interface"]
-             ["deps project:rb"               "dependencies" "deps-components"]
-             ["deps project:rb :compact"      "dependencies" "deps-components-compact"]
-             ["deps project:rb brick:article" "dependencies" "deps-component"]
+             ["deps project:rb"               "dependencies" "deps-libs"]
+             ["deps project:rb :compact"      "dependencies" "deps-libs-compact"]
+             ["deps project:rb brick:article" "dependencies" "deps-lib"]
              ["libs"                          "libraries"    "libs"]])
 
       ;; test out choosing compact format via workspace.edn
@@ -488,7 +488,7 @@
                        ;; doc example tutorial tasks (next task tends to rely on work of previous)
                        [:example [["Workspace" #(workspace opts)]
                                   ["Development" #(development opts)]
-                                  ["Component" #(component opts)]
+                                  ["Component" #(lib opts)]
                                   ["Base" #(base opts)]
                                   ["Project" #(project opts)]
                                   ["Polyx" #(polyx opts)]

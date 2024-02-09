@@ -1,13 +1,13 @@
 {:aliases  {:dev {:extra-paths ["development/src"
                                 "migrate-me/src"
-                                "components/database/src"
-                                "components/database/resources"
-                                "components/datomic-ions/src"
-                                "components/invoicer/src"
-                                "components/invoicer/resources"
-                                "components/test-helper/src"
-                                "components/test-helper-db/src"
-                                "components/util/src"
+                                "libs/database/src"
+                                "libs/database/resources"
+                                "libs/datomic-ions/src"
+                                "libs/invoicer/src"
+                                "libs/invoicer/resources"
+                                "libs/test-helper/src"
+                                "libs/test-helper-db/src"
+                                "libs/util/src"
                                 "bases/invoicer-cli/src"]
                   :extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                org.clojure/tools.deps {:mvn/version "0.16.1281"}
@@ -17,11 +17,11 @@
                                                          :exclusions [org.jcuda/jcuda-natives
                                                                       org.jcuda/jcublas-natives]}}}
 
-            :test {:extra-paths ["components/database/test"
-                                 "components/invoicer/test"
-                                 "components/test-helper/test"
-                                 "components/util/test"
-                                 "components/without-src/test"
+            :test {:extra-paths ["libs/database/test"
+                                 "libs/invoicer/test"
+                                 "libs/test-helper/test"
+                                 "libs/util/test"
+                                 "libs/without-src/test"
                                  "bases/invoicer-cli/test"]
                    :extra-deps {migrate-me/migrate-me {:local/root "migrate-me"}}}
 

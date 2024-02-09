@@ -11,7 +11,7 @@
             [polylith.clj.core.git.interface :as git]
             [polylith.clj.core.util.interface :as util]
             [polylith.clj.core.command.info :as info]
-            [polylith.clj.core.validator.m207-unnecessary-components-in-project :as validator207]
+            [polylith.clj.core.validator.m207-unnecessary-libs-in-project :as validator207]
             [polylith.clj.core.path-finder.interface.extract :as extract]
             [polylith.clj.core.workspace-clj.interface :as ws-clj]
             [polylith.clj.core.ws-explorer.interface :as ws-explorer]
@@ -66,9 +66,9 @@
 (def projects (:projects workspace))
 (def settings (:settings workspace))
 (def interfaces (:interfaces workspace))
-(def components (:components workspace))
+(def libs (:libs workspace))
 (def bases (:bases workspace))
-(def bricks (vec (concat components bases)))
+(def bricks (vec (concat libs bases)))
 (def interfaces (:interfaces workspace))
 (def changes (:changes workspace))
 (def messages (:messages workspace))
@@ -81,16 +81,16 @@
 (def project (common/find-project "invoicing" projects))
 (def project (common/find-project "poly-migrator" projects))
 (def project (common/find-project "um" projects))
-(def component (common/find-component "user" components))
-(def component (common/find-component "util" components))
-(def component (common/find-component "article" components))
-(def component (common/find-component "schema" components))
-(def component (common/find-component "without-src" components))
+(def lib (common/find-lib "user" libs))
+(def lib (common/find-lib "util" libs))
+(def lib (common/find-lib "article" libs))
+(def lib (common/find-lib "schema" libs))
+(def lib (common/find-lib "without-src" libs))
 (def base (common/find-base "poly-cli" bases))
 
-(def changed-components (-> workspace :changes :changed-components))
+(def changed-libs (-> workspace :changes :changed-libs))
 (def changed-bases (-> workspace :changes :changed-bases))
-(def changed-bricks (set (concat changed-components changed-bases)))
+(def changed-bricks (set (concat changed-libs changed-bases)))
 (def brick-changed? (-> (set/intersection bricks changed-bricks)
                         empty? not))
 

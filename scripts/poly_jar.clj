@@ -12,7 +12,7 @@
                               (-> ["bb.edn" "build.clj" "deps.edn" "workspace.edn"]
                                   (into (fs/glob "bases" "**/*"))
                                   (into (fs/glob "build" "**/*"))
-                                  (into (fs/glob "components" "**/*"))
+                                  (into (fs/glob "libs" "**/*"))
                                   (into (fs/glob "projects" "**/*"))
                                   (->> (filter fs/regular-file?)
                                        (remove (fn [path] (str/ends-with? (str path) "navigation/generated.clj")))

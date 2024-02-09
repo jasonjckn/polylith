@@ -6,7 +6,7 @@
 (def cmds [[":all" "help.txt"]
            ["check"]
            ["create"]
-           ["create component"]
+           ["create lib"]
            ["create base"]
            ["create project"]
            ["create workspace"]

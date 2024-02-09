@@ -1,8 +1,8 @@
-{:deps {poly/user {:local/root "../../components/user"}
+{:deps {poly/user {:local/root "../../libs/user"}
         poly/cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}}
 
- :aliases {:test {:extra-paths ["../../components/user/test"
+ :aliases {:test {:extra-paths ["../../libs/user/test"
                                 "../../bases/cli/test"]
                   :extra-deps  {}}}}

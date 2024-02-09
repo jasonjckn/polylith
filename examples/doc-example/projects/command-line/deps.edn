@@ -1,4 +1,4 @@
-{:deps {poly/user-remote {:local/root "../../components/user-remote"}
+{:deps {poly/user-remote {:local/root "../../libs/user-remote"}
         poly/cli {:local/root "../../bases/cli"}
 
         org.clojure/clojure {:mvn/version "1.11.1"}

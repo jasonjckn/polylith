@@ -1,7 +1,7 @@
-{:deps {poly/a-okay     {:local/root "../../components/a-okay"}
-        poly/b-fail     {:local/root "../../components/b-fail"}
-        poly/exclude-me {:local/root "../../components/exclude-me"}
-        poly/util       {:local/root "../../components/util"}
+{:deps {poly/a-okay     {:local/root "../../libs/a-okay"}
+        poly/b-fail     {:local/root "../../libs/b-fail"}
+        poly/exclude-me {:local/root "../../libs/exclude-me"}
+        poly/util       {:local/root "../../libs/util"}
         org.clojure/clojure {:mvn/version "1.10.1"}
         org.clojure/tools.deps {:mvn/version "0.16.1281"}}
 

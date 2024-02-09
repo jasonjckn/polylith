@@ -56,17 +56,17 @@
    "bases/user-api/resources/user-api/.keep"
    "bases/user-api/src/se/example/user_api/core.clj"
    "bases/user-api/test/se/example/user_api/core_test.clj"
-   "components/user-remote/deps.edn"
-   "components/user-remote/resources/user-remote/.keep"
-   "components/user-remote/src/se/example/user/interface.clj"
-   "components/user-remote/test/se/example/user/interface_test.clj"
+   "libs/user-remote/deps.edn"
+   "libs/user-remote/resources/user-remote/.keep"
+   "libs/user-remote/src/se/example/user/interface.clj"
+   "libs/user-remote/test/se/example/user/interface_test.clj"
    "deps.edn"
    "projects/command-line/deps.edn"
    "projects/user-service/deps.edn"
    "workspace.edn"],
   :git-diff-command
   "git diff fa5d584e2024455fc8e042a5f5c85849e309880e --name-only",
-  :changed-components ["user-remote"],
+  :changed-libs ["user-remote"],
   :changed-bases ["user-api"],
   :changed-projects ["command-line" "user-service"],
   :changed-or-affected-projects
@@ -81,7 +81,7 @@
    "user-service" ["user" "user-api"]},
   :project-to-projects-to-test
   {"command-line" [], "user-service" [], "development" []}},
- :components
+ :libs
  [{:lines-of-code {:src 9, :test 7},
    :interface
    {:name "user",
@@ -91,22 +91,22 @@
    {:src
     [{:name "interface",
       :namespace "se.example.user.interface",
-      :file-path "components/user/src/se/example/user/interface.clj",
+      :file-path "libs/user/src/se/example/user/interface.clj",
       :imports ["se.example.user.core"]}
      {:name "core",
       :namespace "se.example.user.core",
-      :file-path "components/user/src/se/example/user/core.clj",
+      :file-path "libs/user/src/se/example/user/core.clj",
       :imports []}],
     :test
     [{:name "interface-test",
       :namespace "se.example.user.interface-test",
       :file-path
-      "components/user/test/se/example/user/interface_test.clj",
+      "libs/user/test/se/example/user/interface_test.clj",
       :imports ["clojure.test" "se.example.user.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "user",
    :paths {:src ["src" "resources"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src [], :test []},
    :lib-deps {}}
   {:lines-of-code {:src 14, :test 6},
@@ -119,22 +119,22 @@
     [{:name "interface",
       :namespace "se.example.user.interface",
       :file-path
-      "components/user-remote/src/se/example/user/interface.clj",
+      "libs/user-remote/src/se/example/user/interface.clj",
       :imports ["se.example.user.core"]}
      {:name "core",
       :namespace "se.example.user.core",
-      :file-path "components/user-remote/src/se/example/user/core.clj",
+      :file-path "libs/user-remote/src/se/example/user/core.clj",
       :imports ["slacker.client"]}],
     :test
     [{:name "interface-test",
       :namespace "se.example.user.interface-test",
       :file-path
-      "components/user-remote/test/se/example/user/interface_test.clj",
+      "libs/user-remote/test/se/example/user/interface_test.clj",
       :imports ["clojure.test" "se.example.user.interface"]}]},
    :lib-imports {:src ["slacker.client"], :test ["clojure.test"]},
    :name "user-remote",
    :paths {:src ["src" "resources"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src [], :test []},
    :lib-deps
    {:src
@@ -146,13 +146,13 @@
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}}}],
  :configs
- {:components
+ {:libs
   [{:deps
     {:paths ["src" "resources"],
      :deps {},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "user",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths ["src" "resources"],
      :deps
@@ -162,7 +162,7 @@
       slacker/slacker {:mvn/version "0.17.0"}},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "user-remote",
-    :type "component"}],
+    :type "lib"}],
   :bases
   [{:deps
     {:paths ["src" "resources"],
@@ -179,7 +179,7 @@
   :projects
   [{:deps
     {:deps
-     {poly/user-remote {:local/root "../../components/user-remote"},
+     {poly/user-remote {:local/root "../../libs/user-remote"},
       poly/cli {:local/root "../../bases/cli"},
       org.clojure/clojure {:mvn/version "1.11.1"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
@@ -207,12 +207,12 @@
         "bases/user-api/test"
         "projects/command-line/test"]},
       :+default
-      {:extra-deps {poly/user {:local/root "components/user"}},
-       :extra-paths ["components/user/test"]},
+      {:extra-deps {poly/user {:local/root "libs/user"}},
+       :extra-paths ["libs/user/test"]},
       :+remote
       {:extra-deps
-       {poly/user-remote {:local/root "components/user-remote"}},
-       :extra-paths ["components/user-remote/test"]},
+       {poly/user-remote {:local/root "libs/user-remote"}},
+       :extra-paths ["libs/user-remote/test"]},
       :build
       {:deps
        {org.clojure/tools.deps {:mvn/version "0.16.1281"},
@@ -229,7 +229,7 @@
     :type "project"}
    {:deps
     {:deps
-     {poly/user {:local/root "../../components/user"},
+     {poly/user {:local/root "../../libs/user"},
       poly/user-api {:local/root "../../bases/user-api"},
       org.clojure/clojure {:mvn/version "1.11.1"},
       org.apache.logging.log4j/log4j-core {:mvn/version "2.13.3"},
@@ -261,7 +261,7 @@
    :type "interface",
    :definitions
    [{:name "hello", :type "function", :arglist [{:name "name"}]}],
-   :implementing-components ["user" "user-remote"]}],
+   :implementing-libs ["user" "user-remote"]}],
  :messages [],
  :name "example",
  :paths
@@ -272,12 +272,12 @@
    "bases/user-api/resources"
    "bases/user-api/src"
    "bases/user-api/test"
-   "components/user-remote/resources"
-   "components/user-remote/src"
-   "components/user-remote/test"
-   "components/user/resources"
-   "components/user/src"
-   "components/user/test"
+   "libs/user-remote/resources"
+   "libs/user-remote/src"
+   "libs/user-remote/test"
+   "libs/user/resources"
+   "libs/user/src"
+   "libs/user/test"
    "development/src"
    "projects/command-line/test"],
   :missing [],
@@ -288,12 +288,12 @@
    "bases/user-api/resources"
    "bases/user-api/src"
    "bases/user-api/test"
-   "components/user-remote/resources"
-   "components/user-remote/src"
-   "components/user-remote/test"
-   "components/user/resources"
-   "components/user/src"
-   "components/user/test"
+   "libs/user-remote/resources"
+   "libs/user-remote/src"
+   "libs/user-remote/test"
+   "libs/user/resources"
+   "libs/user/src"
+   "libs/user/test"
    "projects/command-line/target"
    "projects/command-line/test"
    "projects/user-service/target"]},
@@ -332,11 +332,11 @@
    {:src
     ["bases/cli/resources"
      "bases/cli/src"
-     "components/user-remote/resources"
-     "components/user-remote/src"],
+     "libs/user-remote/resources"
+     "libs/user-remote/src"],
     :test
     ["bases/cli/test"
-     "components/user-remote/test"
+     "libs/user-remote/test"
      "projects/command-line/test"]},
    :type "project",
    :maven-repos
@@ -360,7 +360,7 @@
      "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :component-names {:src ["user-remote"], :test ["user-remote"]},
+   :lib-names {:src ["user-remote"], :test ["user-remote"]},
    :deps
    {"cli"
     {:src {:direct ["user-remote"]}, :test {:direct ["user-remote"]}},
@@ -388,9 +388,9 @@
    {:src
     ["bases/user-api/resources"
      "bases/user-api/src"
-     "components/user/resources"
-     "components/user/src"],
-    :test ["bases/user-api/test" "components/user/test"]},
+     "libs/user/resources"
+     "libs/user/src"],
+    :test ["bases/user-api/test" "libs/user/test"]},
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
@@ -408,7 +408,7 @@
      {:version "2.13.3", :type "maven", :size 23590},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :component-names {:src ["user"], :test ["user"]},
+   :lib-names {:src ["user"], :test ["user"]},
    :deps
    {"user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
     "user" {:src {}, :test {}}}}
@@ -443,13 +443,13 @@
      "bases/cli/src"
      "bases/user-api/resources"
      "bases/user-api/src"
-     "components/user/resources"
-     "components/user/src"
+     "libs/user/resources"
+     "libs/user/src"
      "development/src"],
     :test
     ["bases/cli/test"
      "bases/user-api/test"
-     "components/user/test"
+     "libs/user/test"
      "projects/command-line/test"]},
    :type "project",
    :maven-repos
@@ -490,7 +490,7 @@
      {:version "2.13.3", :type "maven", :size 23590},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}}},
-   :component-names {:src ["user"], :test ["user"]},
+   :lib-names {:src ["user"], :test ["user"]},
    :deps
    {"cli" {:src {:direct ["user"]}, :test {:direct ["user"]}},
     "user-api" {:src {:direct ["user"]}, :test {:direct ["user"]}},
@@ -522,18 +522,18 @@
   :profile-to-settings
   {"default"
    {:paths
-    ["components/user/resources"
-     "components/user/src"
-     "components/user/test"],
+    ["libs/user/resources"
+     "libs/user/src"
+     "libs/user/test"],
     :lib-deps {},
-    :component-names ["user"],
+    :lib-names ["user"],
     :base-names [],
     :project-names []},
    "remote"
    {:paths
-    ["components/user-remote/resources"
-     "components/user-remote/src"
-     "components/user-remote/test"],
+    ["libs/user-remote/resources"
+     "libs/user-remote/src"
+     "libs/user-remote/test"],
     :lib-deps
     {"compojure/compojure"
      {:version "1.6.2", :type "maven", :size 15172},
@@ -542,7 +542,7 @@
      "ring/ring" {:version "1.8.1", :type "maven", :size 4621},
      "slacker/slacker"
      {:version "0.17.0", :type "maven", :size 28408}},
-    :component-names ["user-remote"],
+    :lib-names ["user-remote"],
     :base-names [],
     :project-names []}},
   :projects

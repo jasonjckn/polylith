@@ -1,0 +1,65 @@
+(ns ^:no-doc polylith.clj.core.path-finder.interface.criterias
+  (:require [clojure.string :as str]))
+
+(defn truthy [_]
+  true)
+
+(defn =name [entity-name]
+  (fn [entry] (= entity-name (:name entry))))
+
+(defn lib? [{:keys [type]}]
+  (= :lib type))
+
+(defn base? [{:keys [type]}]
+  (= :base type))
+
+(defn brick? [{:keys [type]}]
+  (or (= :base type)
+      (= :lib type)))
+
+(defn project? [{:keys [type]}]
+  (= :project type))
+
+(defn src? [{:keys [test?]}]
+  (not test?))
+
+(defn test? [{:keys [test?]}]
+  test?)
+
+(defn exists? [{:keys [exists?]}]
+  exists?)
+
+(defn not-exists? [{:keys [exists?]}]
+  (not exists?))
+
+(defn resources? [path]
+  (or (= path "resources")
+      (str/ends-with? path "/resources")))
+
+(defn src-path? [{:keys [path test?]}]
+  (and (not test?)
+       (not (resources? path))))
+
+(defn test-path? [{:keys [path test?]}]
+  (and test?
+       (not (resources? path))))
+
+(defn resources-path? [{:keys [path]}]
+  (resources? path))
+
+(defn profile? [{:keys [profile?]}]
+  profile?)
+
+(defn not-profile? [{:keys [profile?]}]
+  (not profile?))
+
+(defn match? [path-entry criterias]
+  (every? true? ((apply juxt criterias) path-entry)))
+
+(defn filter-entries [path-entries criterias]
+  (if (empty? criterias)
+    (vec path-entries)
+    (filterv #(match? % criterias) path-entries)))
+
+(defn has-entry? [path-entries criterias]
+  (seq (filter-entries path-entries criterias)))

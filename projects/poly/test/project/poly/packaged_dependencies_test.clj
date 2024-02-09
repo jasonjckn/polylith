@@ -13,6 +13,6 @@
 
 (deftest clojure-test-test-runner-is-shipped-with-poly
   (is (-> (workspace)
-          (ws-explorer/extract ["projects" "poly" "component-names" "src"])
+          (ws-explorer/extract ["projects" "poly" "lib-names" "src"])
           (set)
           (contains? "clojure-test-test-runner"))))

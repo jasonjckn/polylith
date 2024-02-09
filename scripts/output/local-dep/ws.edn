@@ -32,10 +32,10 @@
   :since-sha "SHA",
   :changed-files [],
   :git-diff-command "git diff SHA --name-only",
-  :changed-components [],
+  :changed-libs [],
   :since-tag "stable-master",
   :changed-or-affected-projects []},
- :components
+ :libs
  [{:lines-of-code {:src 4, :test 6},
    :interface {:name "database", :definitions []},
    :namespaces
@@ -43,23 +43,23 @@
     [{:name "interface",
       :namespace "com.localdep.database.interface",
       :file-path
-      "components/database/src/com/localdep/database/interface.clj",
+      "libs/database/src/com/localdep/database/interface.clj",
       :imports ["com.localdep.database.core"]}
      {:name "core",
       :namespace "com.localdep.database.core",
       :file-path
-      "components/database/src/com/localdep/database/core.clj",
+      "libs/database/src/com/localdep/database/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.database.interface-test",
       :file-path
-      "components/database/test/com/localdep/database/interface_test.clj",
+      "libs/database/test/com/localdep/database/interface_test.clj",
       :imports ["clojure.test" "com.localdep.database.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "database",
    :paths {:src ["src" "resources"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src ["util"], :test []},
    :lib-deps {}}
   {:lines-of-code {:src 1, :test 0},
@@ -69,12 +69,12 @@
     [{:name "interface",
       :namespace "com.localdep.datomic-ions.interface",
       :file-path
-      "components/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
+      "libs/datomic-ions/src/com/localdep/datomic_ions/interface.clj",
       :imports []}]},
    :lib-imports {},
    :name "datomic-ions",
    :paths {:src ["src"], :test []},
-   :type "component",
+   :type "lib",
    :maven-repos
    {"datomic-cloud"
     {:url "s3://datomic-releases-1fc2183a/maven/releases"}},
@@ -90,18 +90,18 @@
     [{:name "interface",
       :namespace "com.localdep.invoicer.interface",
       :file-path
-      "components/invoicer/src/com/localdep/invoicer/interface.clj",
+      "libs/invoicer/src/com/localdep/invoicer/interface.clj",
       :imports ["com.localdep.invoicer.core"]}
      {:name "core",
       :namespace "com.localdep.invoicer.core",
       :file-path
-      "components/invoicer/src/com/localdep/invoicer/core.clj",
+      "libs/invoicer/src/com/localdep/invoicer/core.clj",
       :imports ["com.localdep.util.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.invoicer.interface-test",
       :file-path
-      "components/invoicer/test/com/localdep/invoicer/interface_test.clj",
+      "libs/invoicer/test/com/localdep/invoicer/interface_test.clj",
       :imports
       ["clojure.test"
        "com.localdep.migrate-me.core"
@@ -110,7 +110,7 @@
    {:test ["clojure.test" "com.localdep.migrate-me.core"]},
    :name "invoicer",
    :paths {:src ["src" "resources"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src ["util"], :test ["test-helper"]},
    :lib-deps
    {:test
@@ -126,24 +126,24 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper.interface",
       :file-path
-      "components/test-helper/src/com/localdep/test_helper/interface.clj",
+      "libs/test-helper/src/com/localdep/test_helper/interface.clj",
       :imports ["com.localdep.test-helper.core"]}
      {:name "core",
       :namespace "com.localdep.test-helper.core",
       :file-path
-      "components/test-helper/src/com/localdep/test_helper/core.clj",
+      "libs/test-helper/src/com/localdep/test_helper/core.clj",
       :imports ["com.localdep.test-helper-db.interface"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.test-helper.interface-test",
       :file-path
-      "components/test-helper/test/com/localdep/test_helper/interface_test.clj",
+      "libs/test-helper/test/com/localdep/test_helper/interface_test.clj",
       :imports
       ["clojure.test" "com.localdep.test-helper.interface"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "test-helper",
    :paths {:src ["src"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src ["test-helper-db"], :test []},
    :lib-deps {}}
   {:lines-of-code {:src 4, :test 0},
@@ -153,17 +153,17 @@
     [{:name "interface",
       :namespace "com.localdep.test-helper-db.interface",
       :file-path
-      "components/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
+      "libs/test-helper-db/src/com/localdep/test_helper_db/interface.clj",
       :imports ["com.localdep.database.interface"]}
      {:name "core",
       :namespace "com.localdep.test-helper-db.core",
       :file-path
-      "components/test-helper-db/src/com/localdep/test_helper_db/core.clj",
+      "libs/test-helper-db/src/com/localdep/test_helper_db/core.clj",
       :imports ["com.localdep.database.interface"]}]},
    :lib-imports {},
    :name "test-helper-db",
    :paths {:src ["src"], :test []},
-   :type "component",
+   :type "lib",
    :interface-deps {:src ["database"], :test []},
    :lib-deps {}}
   {:lines-of-code {:src 8, :test 7},
@@ -178,18 +178,18 @@
    {:src
     [{:name "interface",
       :namespace "com.localdep.util.interface",
-      :file-path "components/util/src/com/localdep/util/interface.clj",
+      :file-path "libs/util/src/com/localdep/util/interface.clj",
       :imports ["clj-time.core"]}],
     :test
     [{:name "interface-test",
       :namespace "com.localdep.util.interface-test",
       :file-path
-      "components/util/test/com/localdep/util/interface_test.clj",
+      "libs/util/test/com/localdep/util/interface_test.clj",
       :imports ["clojure.test" "com.localdep.util.interface"]}]},
    :lib-imports {:src ["clj-time.core"], :test ["clojure.test"]},
    :name "util",
    :paths {:src ["src"], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src [], :test []},
    :lib-deps
    {:src
@@ -205,22 +205,22 @@
     [{:name "dummy-test",
       :namespace "com.localdep.without-src.dummy-test",
       :file-path
-      "components/without-src/test/com/localdep/without_src/dummy_test.clj",
+      "libs/without-src/test/com/localdep/without_src/dummy_test.clj",
       :imports ["clojure.test"]}]},
    :lib-imports {:test ["clojure.test"]},
    :name "without-src",
    :paths {:src [], :test ["test"]},
-   :type "component",
+   :type "lib",
    :interface-deps {:src [], :test []},
    :lib-deps {}}],
  :configs
- {:components
+ {:libs
   [{:deps
     {:paths ["src" "resources"],
      :deps {},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "database",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:mvn/repos
      {"datomic-cloud"
@@ -229,7 +229,7 @@
      :deps {},
      :aliases {:test {:extra-paths [], :extra-deps {}}}},
     :name "datomic-ions",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths ["src" "resources"],
      :deps {},
@@ -239,19 +239,19 @@
        :extra-deps
        {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}},
     :name "invoicer",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths ["src"],
      :deps {},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "test-helper",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths ["src"],
      :deps {},
      :aliases {:test {:extra-paths [], :extra-deps {}}}},
     :name "test-helper-db",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths ["src"],
      :deps
@@ -260,13 +260,13 @@
        :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "util",
-    :type "component"}
+    :type "lib"}
    {:deps
     {:paths [],
      :deps {},
      :aliases {:test {:extra-paths ["test"], :extra-deps {}}}},
     :name "without-src",
-    :type "component"}],
+    :type "lib"}],
   :bases
   [{:deps
     {:paths ["src"],
@@ -281,14 +281,14 @@
       {:extra-paths
        ["development/src"
         "migrate-me/src"
-        "components/database/src"
-        "components/database/resources"
-        "components/datomic-ions/src"
-        "components/invoicer/src"
-        "components/invoicer/resources"
-        "components/test-helper/src"
-        "components/test-helper-db/src"
-        "components/util/src"
+        "libs/database/src"
+        "libs/database/resources"
+        "libs/datomic-ions/src"
+        "libs/invoicer/src"
+        "libs/invoicer/resources"
+        "libs/test-helper/src"
+        "libs/test-helper-db/src"
+        "libs/util/src"
         "bases/invoicer-cli/src"],
        :extra-deps
        {org.clojure/clojure {:mvn/version "1.10.1"},
@@ -302,11 +302,11 @@
          [org.jcuda/jcuda-natives org.jcuda/jcublas-natives]}}},
       :test
       {:extra-paths
-       ["components/database/test"
-        "components/invoicer/test"
-        "components/test-helper/test"
-        "components/util/test"
-        "components/without-src/test"
+       ["libs/database/test"
+        "libs/invoicer/test"
+        "libs/test-helper/test"
+        "libs/util/test"
+        "libs/without-src/test"
         "bases/invoicer-cli/test"],
        :extra-deps {migrate-me/migrate-me {:local/root "migrate-me"}}},
       :poly
@@ -317,11 +317,11 @@
     :type "project"}
    {:deps
     {:deps
-     {poly/database {:local/root "../../components/database"},
-      poly/datomic-ions {:local/root "../../components/datomic-ions"},
-      poly/invoicer {:local/root "../../components/invoicer"},
-      poly/util {:local/root "../../components/util"},
-      poly/without-src {:local/root "../../components/without-src"},
+     {poly/database {:local/root "../../libs/database"},
+      poly/datomic-ions {:local/root "../../libs/datomic-ions"},
+      poly/invoicer {:local/root "../../libs/invoicer"},
+      poly/util {:local/root "../../libs/util"},
+      poly/without-src {:local/root "../../libs/without-src"},
       poly/invoicer-cli {:local/root "../../bases/invoicer-cli"},
       org.clojure/clojure {:mvn/version "1.10.1"},
       org.clojure/tools.deps {:mvn/version "0.16.1281"}},
@@ -329,9 +329,9 @@
      {:test
       {:extra-paths [],
        :extra-deps
-       {poly/test-helper {:local/root "../../components/test-helper"},
+       {poly/test-helper {:local/root "../../libs/test-helper"},
         poly/test-helper-db
-        {:local/root "../../components/test-helper-db"}}}}},
+        {:local/root "../../libs/test-helper-db"}}}}},
     :name "invoicing",
     :type "project"}],
   :user
@@ -354,24 +354,24 @@
  [{:name "database",
    :type "interface",
    :definitions [],
-   :implementing-components ["database"]}
+   :implementing-libs ["database"]}
   {:name "datomic-ions",
    :type "interface",
    :definitions [],
-   :implementing-components ["datomic-ions"]}
+   :implementing-libs ["datomic-ions"]}
   {:name "invoicer",
    :type "interface",
    :definitions
    [{:name "do-invoicing", :type "function", :arglist []}],
-   :implementing-components ["invoicer"]}
+   :implementing-libs ["invoicer"]}
   {:name "test-helper",
    :type "interface",
    :definitions [],
-   :implementing-components ["test-helper"]}
+   :implementing-libs ["test-helper"]}
   {:name "test-helper-db",
    :type "interface",
    :definitions [],
-   :implementing-components ["test-helper-db"]}
+   :implementing-libs ["test-helper-db"]}
   {:name "util",
    :type "interface",
    :definitions
@@ -379,49 +379,49 @@
     {:name "do-stuff",
      :type "function",
      :arglist [{:name "string1"} {:name "string2"}]}],
-   :implementing-components ["util"]}
+   :implementing-libs ["util"]}
   {:name nil,
    :type "interface",
    :definitions [],
-   :implementing-components ["without-src"]}],
+   :implementing-libs ["without-src"]}],
  :messages [],
  :name "local-dep",
  :paths
  {:existing
   ["bases/invoicer-cli/src"
    "bases/invoicer-cli/test"
-   "components/database/resources"
-   "components/database/src"
-   "components/database/test"
-   "components/datomic-ions/src"
-   "components/invoicer/resources"
-   "components/invoicer/src"
-   "components/invoicer/test"
-   "components/test-helper-db/src"
-   "components/test-helper/src"
-   "components/test-helper/test"
-   "components/util/src"
-   "components/util/test"
-   "components/without-src/test"
+   "libs/database/resources"
+   "libs/database/src"
+   "libs/database/test"
+   "libs/datomic-ions/src"
+   "libs/invoicer/resources"
+   "libs/invoicer/src"
+   "libs/invoicer/test"
+   "libs/test-helper-db/src"
+   "libs/test-helper/src"
+   "libs/test-helper/test"
+   "libs/util/src"
+   "libs/util/test"
+   "libs/without-src/test"
    "development/src"
    "migrate-me/src"],
   :missing [],
   :on-disk
   ["bases/invoicer-cli/src"
    "bases/invoicer-cli/test"
-   "components/database/resources"
-   "components/database/src"
-   "components/database/test"
-   "components/datomic-ions/src"
-   "components/invoicer/resources"
-   "components/invoicer/src"
-   "components/invoicer/test"
-   "components/test-helper-db/src"
-   "components/test-helper/src"
-   "components/test-helper/test"
-   "components/util/src"
-   "components/util/test"
-   "components/without-src/test"]},
+   "libs/database/resources"
+   "libs/database/src"
+   "libs/database/test"
+   "libs/datomic-ions/src"
+   "libs/invoicer/resources"
+   "libs/invoicer/src"
+   "libs/invoicer/test"
+   "libs/test-helper-db/src"
+   "libs/test-helper/src"
+   "libs/test-helper/test"
+   "libs/util/src"
+   "libs/util/test"
+   "libs/without-src/test"]},
  :projects
  [{:lines-of-code {:src 0, :test 0, :total {:src 63, :test 63}},
    :deps-filename
@@ -445,21 +445,21 @@
    :paths
    {:src
     ["bases/invoicer-cli/src"
-     "components/database/resources"
-     "components/database/src"
-     "components/datomic-ions/src"
-     "components/invoicer/resources"
-     "components/invoicer/src"
-     "components/util/src"],
+     "libs/database/resources"
+     "libs/database/src"
+     "libs/datomic-ions/src"
+     "libs/invoicer/resources"
+     "libs/invoicer/src"
+     "libs/util/src"],
     :test
     ["bases/invoicer-cli/test"
-     "components/database/test"
-     "components/invoicer/test"
-     "components/test-helper-db/src"
-     "components/test-helper/src"
-     "components/test-helper/test"
-     "components/util/test"
-     "components/without-src/test"]},
+     "libs/database/test"
+     "libs/invoicer/test"
+     "libs/test-helper-db/src"
+     "libs/test-helper/src"
+     "libs/test-helper/test"
+     "libs/util/test"
+     "libs/without-src/test"]},
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
@@ -485,7 +485,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
-   :component-names
+   :lib-names
    {:src ["database" "datomic-ions" "invoicer" "util"],
     :test
     ["database"
@@ -554,22 +554,22 @@
    :paths
    {:src
     ["bases/invoicer-cli/src"
-     "components/database/resources"
-     "components/database/src"
-     "components/datomic-ions/src"
-     "components/invoicer/resources"
-     "components/invoicer/src"
-     "components/test-helper-db/src"
-     "components/test-helper/src"
-     "components/util/src"
+     "libs/database/resources"
+     "libs/database/src"
+     "libs/datomic-ions/src"
+     "libs/invoicer/resources"
+     "libs/invoicer/src"
+     "libs/test-helper-db/src"
+     "libs/test-helper/src"
+     "libs/util/src"
      "development/src"],
     :test
     ["bases/invoicer-cli/test"
-     "components/database/test"
-     "components/invoicer/test"
-     "components/test-helper/test"
-     "components/util/test"
-     "components/without-src/test"]},
+     "libs/database/test"
+     "libs/invoicer/test"
+     "libs/test-helper/test"
+     "libs/util/test"
+     "libs/without-src/test"]},
    :type "project",
    :maven-repos
    {"central" {:url "https://repo1.maven.org/maven2/"},
@@ -583,23 +583,23 @@
    {:paths
     {:src
      ["bases/invoicer-cli/src"
-      "components/database/resources"
-      "components/database/src"
-      "components/datomic-ions/src"
-      "components/invoicer/resources"
-      "components/invoicer/src"
-      "components/test-helper-db/src"
-      "components/test-helper/src"
-      "components/util/src"
+      "libs/database/resources"
+      "libs/database/src"
+      "libs/datomic-ions/src"
+      "libs/invoicer/resources"
+      "libs/invoicer/src"
+      "libs/test-helper-db/src"
+      "libs/test-helper/src"
+      "libs/util/src"
       "development/src"
       "migrate-me/src"],
      :test
      ["bases/invoicer-cli/test"
-      "components/database/test"
-      "components/invoicer/test"
-      "components/test-helper/test"
-      "components/util/test"
-      "components/without-src/test"]},
+      "libs/database/test"
+      "libs/invoicer/test"
+      "libs/test-helper/test"
+      "libs/util/test"
+      "libs/without-src/test"]},
     :lib-deps
     {:src
      {"org.clojure/clojure" {:version "1.10.1", :type "maven"},
@@ -640,7 +640,7 @@
       :type "local",
       :path "migrate-me",
       :size 310}}},
-   :component-names
+   :lib-names
    {:src
     ["database"
      "datomic-ions"

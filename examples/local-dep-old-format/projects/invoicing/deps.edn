@@ -1,11 +1,11 @@
 {:mvn/repos {"datomic-cloud" {:url "s3://datomic-releases-1fc2183a/maven/releases"}}
 
- :paths ["../../components/database/src"
-         "../../components/database/resources"
-         "../../components/datomic-ions/src"
-         "../../components/invoicer/src"
-         "../../components/invoicer/resources"
-         "../../components/util/src"
+ :paths ["../../libs/database/src"
+         "../../libs/database/resources"
+         "../../libs/datomic-ions/src"
+         "../../libs/invoicer/src"
+         "../../libs/invoicer/resources"
+         "../../libs/util/src"
          "../../bases/invoicer-cli/src"]
 
  :deps {org.clojure/clojure {:mvn/version "1.10.1"}
@@ -13,12 +13,12 @@
         clj-time/clj-time {:git/url "https://github.com/clj-time/clj-time.git"
                            :sha "d9ed4e46c6b42271af69daa1d07a6da2df455fab"}}
 
- :aliases {:test {:extra-paths ["../../components/database/test"
-                                "../../components/invoicer/test"
-                                "../../components/test-helper/src"
-                                "../../components/test-helper/test"
-                                "../../components/test-helper-db/src"
-                                "../../components/util/test"
-                                "../../components/without-src/test"
+ :aliases {:test {:extra-paths ["../../libs/database/test"
+                                "../../libs/invoicer/test"
+                                "../../libs/test-helper/src"
+                                "../../libs/test-helper/test"
+                                "../../libs/test-helper-db/src"
+                                "../../libs/util/test"
+                                "../../libs/without-src/test"
                                 "../../bases/invoicer-cli/test"]
                   :extra-deps  {migrate-me/migrate-me {:local/root "../../migrate-me"}}}}}

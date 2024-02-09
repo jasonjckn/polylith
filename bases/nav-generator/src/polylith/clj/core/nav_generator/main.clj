@@ -9,7 +9,7 @@
                             (str/split (str data) #",")))
        ")"))
 
-(def filename "components/doc/src/polylith/clj/core/doc/navigation/generated.clj")
+(def filename "libs/doc/src/polylith/clj/core/doc/navigation/generated.clj")
 
 (defn save-file [def-name data]
   (spit filename "\n\n" :append true)

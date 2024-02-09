@@ -328,9 +328,9 @@
            (ws-project-deps-table/table (workspace) project)))))
 
 (deftest polylith-brick-and-project-deps
-  (let [{:keys [components projects] :as ws} (workspace)
+  (let [{:keys [libs projects] :as ws} (workspace)
         project (common/find-project "poly" projects)
-        brick (common/find-component "workspace" components)]
+        brick (common/find-lib "workspace" libs)]
     (is (= ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
             "  api                        antq       "
@@ -345,8 +345,8 @@
            (brick-deps-table/table ws project brick "none")))))
 
 (deftest polylith-project-brick-deps
-  (let [{:keys [components] :as ws} (workspace)
-        brick (common/find-component "workspace" components)]
+  (let [{:keys [libs] :as ws} (workspace)
+        brick (common/find-lib "workspace" libs)]
     (is (= ["  used by   <  workspace  >  uses       "
             "  --------                   -----------"
             "  api                        antq       "
@@ -979,66 +979,66 @@
 (deftest polylith-poly-project-src-paths
   (is (= ["bases/nav-generator/src"
           "bases/poly-cli/src"
-          "components/antq/src"
-          "components/api/src"
-          "components/change/src"
-          "components/clojure-test-test-runner/src"
-          "components/command/src"
-          "components/common/src"
-          "components/config-reader/src"
-          "components/creator/resources"
-          "components/creator/src"
-          "components/deps/src"
-          "components/doc/src"
-          "components/file/src"
-          "components/git/src"
-          "components/help/src"
-          "components/image-creator/src"
-          "components/lib/src"
-          "components/migrator/src"
-          "components/overview/src"
-          "components/path-finder/src"
-          "components/sh/src"
-          "components/shell/src"
-          "components/system/src"
-          "components/tap/src"
-          "components/test-runner-contract/src"
-          "components/test-runner-orchestrator/src"
-          "components/text-table/src"
-          "components/user-config/src"
-          "components/user-input/src"
-          "components/util/src"
-          "components/validator/src"
-          "components/version/src"
-          "components/workspace-clj/src"
-          "components/workspace/src"
-          "components/ws-explorer/src"
-          "components/ws-file/src"]
+          "libs/antq/src"
+          "libs/api/src"
+          "libs/change/src"
+          "libs/clojure-test-test-runner/src"
+          "libs/command/src"
+          "libs/common/src"
+          "libs/config-reader/src"
+          "libs/creator/resources"
+          "libs/creator/src"
+          "libs/deps/src"
+          "libs/doc/src"
+          "libs/file/src"
+          "libs/git/src"
+          "libs/help/src"
+          "libs/image-creator/src"
+          "libs/lib/src"
+          "libs/migrator/src"
+          "libs/overview/src"
+          "libs/path-finder/src"
+          "libs/sh/src"
+          "libs/shell/src"
+          "libs/system/src"
+          "libs/tap/src"
+          "libs/test-runner-contract/src"
+          "libs/test-runner-orchestrator/src"
+          "libs/text-table/src"
+          "libs/user-config/src"
+          "libs/user-input/src"
+          "libs/util/src"
+          "libs/validator/src"
+          "libs/version/src"
+          "libs/workspace-clj/src"
+          "libs/workspace/src"
+          "libs/ws-explorer/src"
+          "libs/ws-file/src"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "src"]))))
 
 (deftest polylith-poly-project-test-paths
   (is (= ["bases/poly-cli/test"
-          "components/change/test"
-          "components/clojure-test-test-runner/test"
-          "components/command/test"
-          "components/common/test"
-          "components/config-reader/test"
-          "components/creator/test"
-          "components/deps/test"
-          "components/git/test"
-          "components/lib/test"
-          "components/path-finder/test"
-          "components/shell/test"
-          "components/test-helper/resources"
-          "components/test-helper/src"
-          "components/test-runner-contract/test"
-          "components/test-runner-orchestrator/test"
-          "components/user-input/test"
-          "components/util/test"
-          "components/validator/test"
-          "components/workspace-clj/test"
-          "components/workspace/test"
-          "components/ws-explorer/test"
+          "libs/change/test"
+          "libs/clojure-test-test-runner/test"
+          "libs/command/test"
+          "libs/common/test"
+          "libs/config-reader/test"
+          "libs/creator/test"
+          "libs/deps/test"
+          "libs/git/test"
+          "libs/lib/test"
+          "libs/path-finder/test"
+          "libs/shell/test"
+          "libs/test-helper/resources"
+          "libs/test-helper/src"
+          "libs/test-runner-contract/test"
+          "libs/test-runner-orchestrator/test"
+          "libs/user-input/test"
+          "libs/util/test"
+          "libs/validator/test"
+          "libs/workspace-clj/test"
+          "libs/workspace/test"
+          "libs/ws-explorer/test"
           "projects/poly/test"]
          (ws-explorer/extract (workspace) ["projects" "poly" "paths" "test"]))))
 
@@ -1082,17 +1082,17 @@
                  "polylith.clj.core.poly-cli.core"]}
          (ws-explorer/extract (workspace) ["projects" "poly" "lib-imports"]))))
 
-(deftest polylith-shell-component-lib-deps
+(deftest polylith-shell-lib-lib-deps
   (is (= {:src {"org.jline/jline" {:size    1145741
                                    :type    "maven"
                                    :version "3.24.1"}}}
-         (ws-explorer/extract (workspace) ["components" "shell" "lib-deps"]))))
+         (ws-explorer/extract (workspace) ["libs" "shell" "lib-deps"]))))
 
 (deftest profile-info
   (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
-          "  bases:    2   components: 6                 "
+          "  bases:    2   libs: 6                 "
           "                                              "
           "  active profiles: default                    "
           "                                              "
@@ -1112,7 +1112,7 @@
           "  -            base1          st-   st-   --  "
           "  -            base2          st-   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  Error 107: Missing libs in the service project for these interfaces: calculator"]
          (run-cmd "examples/profiles"
                   "info"
                   ":no-changes"))))
@@ -1121,7 +1121,7 @@
   (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
-          "  bases:    2   components: 6                 "
+          "  bases:    2   libs: 6                 "
           "                                              "
           "  active profiles: default                    "
           "                                              "
@@ -1141,7 +1141,7 @@
           "  -            base1          stx   st-   --  "
           "  -            base2 *        stx   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  Error 107: Missing libs in the service project for these interfaces: calculator"]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/test/se/example/base2/core_test.clj"))))
@@ -1150,7 +1150,7 @@
   (is (= ["  stable since: 1234567                       "
           "                                              "
           "  projects: 2   interfaces: 5                 "
-          "  bases:    2   components: 6                 "
+          "  bases:    2   libs: 6                 "
           "                                              "
           "  active profiles: default                    "
           "                                              "
@@ -1170,7 +1170,7 @@
           "  -            base1          stx   st-   --  "
           "  -            base2 *        stx   st-   --  "
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  Error 107: Missing libs in the service project for these interfaces: calculator"]
          (run-cmd "examples/profiles"
                   "info"
                   "changed-files:bases/base2/src/se/example/base2/core.clj"))))
@@ -1179,7 +1179,7 @@
   (is (= ["  stable since: 1234567                                 "
           "                                                        "
           "  projects: 2   interfaces: 5                           "
-          "  bases:    2   components: 6                           "
+          "  bases:    2   libs: 6                           "
           "                                                        "
           "  active profiles: default                              "
           "                                                        "
@@ -1201,7 +1201,7 @@
           "  -            base2          st-   st-   --       1   5"
           "                              12    13            16  38"
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  Error 107: Missing libs in the service project for these interfaces: calculator"]
          (run-cmd "examples/profiles"
                   "info" ":loc"
                   ":no-changes"))))
@@ -1210,7 +1210,7 @@
   (is (= ["  stable since: 1234567          "
           "                                 "
           "  projects: 1   interfaces: 5    "
-          "  bases:    2   components: 6    "
+          "  bases:    2   libs: 6    "
           "                                 "
           "  active profiles: default       "
           "                                 "
@@ -1229,7 +1229,7 @@
           "  -            base1          st-"
           "  -            base2          st-"
           ""
-          "  Error 107: Missing components in the service project for these interfaces: calculator"]
+          "  Error 107: Missing libs in the service project for these interfaces: calculator"]
          (run-cmd "examples/profiles"
                   "info" "skip:dev"
                   ":no-changes"))))
@@ -1355,18 +1355,18 @@
             :interface-ns "interface"
             :m2-dir (str (System/getProperty "user.home") "/.m2")
             :profile-to-settings  {"default" {:base-names []
-                                              :component-names ["user1"]
+                                              :lib-names ["user1"]
                                               :lib-deps {"clj-commons/fs" {:size 12819
                                                                            :type "maven"
                                                                            :version "1.6.310"}}
-                                              :paths ["components/user1/src"
-                                                      "components/user1/test"]
+                                              :paths ["libs/user1/src"
+                                                      "libs/user1/test"]
                                               :project-names []}
                                    "extra" {:base-names []
-                                            :component-names ["admin"]
+                                            :lib-names ["admin"]
                                             :lib-deps {}
-                                            :paths ["components/admin/src"
-                                                    "components/admin/test"]
+                                            :paths ["libs/admin/src"
+                                                    "libs/admin/test"]
                                             :project-names []}}
             :projects {"development" {:alias "dev"
                                       :test {:create-test-runner ['polylith.clj.core.clojure-test-test-runner.interface/create]}}

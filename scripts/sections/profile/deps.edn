@@ -11,11 +11,11 @@
                                  "bases/user-api/test"
                                  "projects/command-line/test"]}
 
-            :+default {:extra-deps {poly/user {:local/root "components/user"}}
-                       :extra-paths ["components/user/test"]}
+            :+default {:extra-deps {poly/user {:local/root "libs/user"}}
+                       :extra-paths ["libs/user/test"]}
 
-            :+remote {:extra-deps {poly/user-remote {:local/root "components/user-remote"}}
-                      :extra-paths ["components/user-remote/test"]}
+            :+remote {:extra-deps {poly/user-remote {:local/root "libs/user-remote"}}
+                      :extra-paths ["libs/user-remote/test"]}
 
             :build {:deps {org.clojure/tools.deps {:mvn/version "0.16.1281"}
                            io.github.clojure/tools.build {:mvn/version "0.9.5"}
